@@ -1,8 +1,15 @@
 <%- include ('../partials/_header_admin.ejs') %>
+
 <div class="container">
-    <div class="container">
+    <nav class="navbar navbar-light bg-light">
         <a class="btn btn-success" style="margin-bottom: 10px;" href="/admin/products/create">ADD</a>
-    </div>
+
+        <form class="form-inline" action="" method="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
     <table class="table">
         <tbody>
             <tr>

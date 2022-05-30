@@ -32,7 +32,7 @@
 							<td class="text-right font-weight-semibold align-middle "><%=book.price%></td>
 							<td class="align-middle"><input type="text" class="form-control text-center" id="amount" onchange="changeAmount(this.value, <%=book.id%>, <%=book.price%>)" value="<%=book.amount%>"></td>
 							<td class="text-right font-weight-semibold align-middle " id="total_<%=book.id%>"><%=book.total%></td>
-							<td class="text-center align-middle "><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+                            <td class="text-center align-middle "><button  class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove" onclick="deleteItem(<%=book.id%>)">×</button></td>
 						  </tr>
 					<% }) %>
                  
@@ -61,7 +61,7 @@
         
             <div class="float-right">
               <a type="button" href="/" class="btn btn-success btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
-              <a type="button" class="btn btn-success btn-default md-btn-flat mt-2 mr-3">Checkout</a>
+              <a type="button" href="/users/checkout" class="btn btn-success btn-default md-btn-flat mt-2 mr-3">Checkout</a>
             </div>
         
           </div>
@@ -76,5 +76,14 @@
 
         $(`#total_${id}`).text(result.data.item.amount*price);
         $('#total').text(result.data.total)
+    }
+    async function deleteItem(id){
+        console.log(id);
+        try {
+            await axios.delete(`/users/cart/cart_item/${id}`);
+            window.location.reload();
+        }catch (e) {
+
+        }
     }
   </script>

@@ -169,11 +169,12 @@ router.put('/cart/:id',checkAuthentication, async (req, res) => {
 	}
 });
 // Delete Item
-router.delete('/cart', checkAuthentication, async (req, res) => {
+router.delete('/cart/cart_item/:id', checkAuthentication, async (req, res) => {
 	try {
-		
+		await db.Cart_item.destroy({where:{id: req.params.id}});
+		return res.status(200).json({message:"success"})
 	} catch (e) {
-		
+		return res.status(500).json({message: e})
 	}
 });
 // Dashboard
@@ -237,7 +238,6 @@ router.post('/order', async (req, res) => {
 			type: QueryTypes.SELECT
 		}
 		);
-		console.log(total)
 		const order = await db.Order.create({ phone_number: req.body.phone_number, address: req.body.address,
 			fullname: req.body.fullname, total: total[0].total, shipping: 0, user_id: req.session.user.id },
 			{ transaction: t}

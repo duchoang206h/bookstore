@@ -3,7 +3,7 @@ const router = express.Router();
 const checkAuthorization = require('../middleware/checkAuthorization');
 const day = require('dayjs')
 const multer = require('multer');
-const { QueryTypes } = require("sequelize")
+const { QueryTypes, Op } = require("sequelize")
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './public/images')
@@ -18,16 +18,19 @@ const db = require('../models');
 
 router.get('/', async (req, res) => {
     
-    const totalProduct = await db.sequelize.query(`select count(*) as count from Books`, {type: QueryTypes.SELECT});
-    const totalOrder = await db.sequelize.query(`select count(*) as count from Orders`, {type: QueryTypes.SELECT});
-    const totalOrderMoney = await db.sequelize.query(`select sum(total) as total from Orders`, {type: QueryTypes.SELECT});
-    res.render('admin/dashboard', {totalProduct:totalProduct[0].count  , totalOrder:totalOrder[0].count, totalOrderMoney: totalOrderMoney[0].count});
+    const [{count: totalProduct}] = await db.sequelize.query(`select count(*) as count from Books`, {type: QueryTypes.SELECT});
+    const [{count: totalOrder}] = await db.sequelize.query(`select count(*) as count from Orders`, {type: QueryTypes.SELECT});
+    const [{total: totalOrderMoney}] = await db.sequelize.query(`select sum(total) as total from Orders`, {type: QueryTypes.SELECT});
+    const [{total:totalProductSold}] = await db.sequelize.query(`select sum(amount) as total from Order_items`, {type: QueryTypes.SELECT})
+    res.render('admin/dashboard', {totalProduct  , totalOrder, totalOrderMoney, totalProductSold});
 });
 router.get('/products', async (req, res) => {
-    /* const books = await Book.find();
-    const users = await User.find();
-    const orders = await Order.find().sort({createdAt:-1}).populate("user").populate("details.book").exec();
-    console.log(orders); */
+    if(req.query.search){
+        const books = await db.Book.findAll({where:{
+            title:{[Op.like]: `%${req.query.search}%`}
+            }})
+        return  res.render('admin/product', { books: books });
+    }
     const books = await db.Book.findAll();
     res.render('admin/product', { books: books });
 });
@@ -59,7 +62,25 @@ router.delete('/products/:id/delete', async (req, res) => {
     res.render('admin/product_create', {book:{}})
   });
 
- router.get("/order", async(req,res)=>{
+ router.get("/orders", async(req,res)=>{
+    // const orders = await db.Order.findAll();
 
+     const orders = await db.sequelize.query(
+         `select * from orders 
+          inner join order_items 
+            on order.id = order_items.order_id
+         
+    `, {type })
+     res.render('admin/order', { orders })
  })
+
+router.put('/orders/:id/update', checkAuthorization, async (req, res) =>{
+    try {
+        const { id } = req.body;
+        await db.Order.update({ status : 1}, { where :{ id }});
+        res.status(200).json({ msg:"Update success"});
+    }catch (e) {
+        res.status(500).json({ msg:"Internal error"})
+    }
+})
 module.exports = router;
