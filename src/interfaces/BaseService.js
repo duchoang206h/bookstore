@@ -1,3 +1,4 @@
+const { sequelize } = require("../../models");
 
 module.exports =  class BaseService {
 
@@ -5,7 +6,7 @@ module.exports =  class BaseService {
         this.model = model
     }
      async findById (id ){
-        return await this.model.findByPk
+        return await this.model.findByPk(id)
     }
 
     async findAll() {
@@ -30,5 +31,11 @@ module.exports =  class BaseService {
 
     async delete  (id ) {
         return await this.model.destroy({where:{id:id}});
+    }
+
+    async sum(field){
+        return await this.model.findAll({
+            attributes :[[sequelize.fn('sum', sequelize.col(field), "sum")]]
+        })
     }
 }

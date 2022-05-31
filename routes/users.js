@@ -260,7 +260,7 @@ router.post('/order', async (req, res) => {
 		const transaction = await db.Transaction.create({ type:"cod", status: 1, user_id: req.session.user.id, order_id: order.id}, { transaction: t})
 		await t.commit();
 		console.log(order_items);
-		res.send("KKKK");
+		res.render('users/thankyou')
 	}catch (e) {
 		 await t.rollback();
 		console.log(e)

@@ -1,5 +1,6 @@
 const BaseService = require('../interfaces/BaseService')
 const db = require("../../models");
+const { QueryTypes } = require("sequelize");
 class CartService extends BaseService{
     constructor(model) {
         super(model);
@@ -18,6 +19,46 @@ class CartService extends BaseService{
         else{
             await db.Cart_item.create({ amount: item.amount, book_id: item.id, cart_id: cart.id})
         }
+    }
+    /**
+     * @param {Object} item
+     * @param {number} item.id
+     * @param {number} item.amount
+     * **/
+    updateItem = async (item) =>{
+       return await db.Cart_item.update({ amount: item.amount }, { where: {id: item.id}});
+    }
+    /**
+     *  @return {number}
+     * **/
+    totalItemPrice = async ( user_id) =>{
+       const total =  await db.sequelize.query(`
+			select sum(Cart_items.amount*Books.price) as total from Books
+				inner join Cart_items
+					on Cart_items.book_id = Books.id
+				where  Cart_items.cart_id in (
+							select id from Carts where user_id = ? )`, {
+            replacements: [user_id],
+            type: QueryTypes.SELECT
+        });
+        console.log(total)
+       return total[0].total
+    }
+
+     deleteItem = async(id) =>{
+       return await db.Cart_item.destroy({ where: {id}})
+    }
+
+     getAllItemsByUserId = async (user_id) =>{
+        return await db.sequelize.query(`
+			select Cart_items.id, Books.title, Books.price, Books.description, Cart_items.amount, Cart_items.amount*Books.price as total from Books
+				inner join Cart_items
+					on Cart_items.book_id = Books.id
+				where  Cart_items.cart_id in (
+							select id from Carts where user_id = ? )`, {
+            replacements: [user_id],
+            type: QueryTypes.SELECT
+        });
     }
 }
 module.exports = new CartService();

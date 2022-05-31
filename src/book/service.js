@@ -1,6 +1,6 @@
 const BaseService =require( "../interfaces/BaseService");
 const db = require('../../models')
-const { Op} = require('sequelize')
+const { Op } = require('sequelize')
  class BookService extends BaseService {
     constructor(model) {
         super(model);
@@ -8,7 +8,7 @@ const { Op} = require('sequelize')
     async searchByTitle(title){
         return await  this.model.findAll({where:{
             title:{
-                [Op]: `%${title}%`
+                [Op.like]: `%${title}%`
             }}})
     }
 }
