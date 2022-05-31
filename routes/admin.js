@@ -50,7 +50,7 @@ router.put('/products/:id/edit', async (req, res) => {
    res.status(200).json({ book });
 });
 router.delete('/products/:id/delete', async (req, res) => {
-    const book = db.Book.destroy( {where : {id: req.params.id}})
+    const book = await db.Book.destroy( {where : {id: req.params.id}})
     res.status(200).json({ book });
  });
  router.post('/products/create', async (req, res) => {

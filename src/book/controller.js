@@ -1,8 +1,5 @@
-const categoryService = require("../category/categoryService");
-const bookService = require("./bookService");
-const {mode} = require("mongoose/webpack.base.config");
 
-const bookService = require('./bookService');
+const bookService = require("./service");
 const categoryService = require('../category/categoryService');
 class BookController {
  index = async (req, res) =>{
