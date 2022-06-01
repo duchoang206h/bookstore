@@ -11,4 +11,6 @@ Backend:
   - ORM: Sequelize
   - Session
   - Template engine: Ejs
+Database schema:
+![BookShop](https://user-images.githubusercontent.com/70766041/171415291-e8a33d9a-5b4f-47ff-8ed9-cd61c1e7300c.png)
   
