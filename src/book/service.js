@@ -1,5 +1,5 @@
 const BaseRepo =require( "../interfaces/BaseRepo");
-const db = require('../../models')
+const db = require('../models')
 const { Op } = require('sequelize')
  class BookService extends BaseRepo {
     constructor(model) {

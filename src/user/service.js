@@ -1,6 +1,6 @@
 const BaseRepo = require('../interfaces/BaseRepo');
 
-const db = require("../../models");
+const db = require("../models");
 const { QueryTypes } = require("sequelize");
 const cartService = require('../cart/service')
 class UserService extends BaseRepo{

@@ -1,6 +1,6 @@
-const db = require('../../models');
+const db = require('../models');
 const passport = require('passport');
-const checkAuthentication = require('../../middleware/checkAuthentication');
+const checkAuthentication = require('../middleware/checkAuthentication');
 
 const { QueryTypes } = require('sequelize');
 const { ROLE_AMIN, ROLE_USER} = require('../constants')

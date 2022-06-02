@@ -1,5 +1,5 @@
-const { github, google } = require("../../config/oauth");
-const { APP_URL} = require("../../config/key");
+const { github, google } = require("../config/oauth");
+const { APP_URL} = require("../config/key");
 const Google = require("passport-google-oauth2").Strategy;
 const Github = require("passport-github2").Strategy;
 const GoogleStrategy = new Google(

@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const checkAuthentication = require('../../middleware/checkAuthentication');
-const db = require('../../models');
+const checkAuthentication = require('../middleware/checkAuthentication');
+const db = require('../models');
 const { QueryTypes } = require('sequelize');
 const userController = require('./controller')
 // Users Login Route
