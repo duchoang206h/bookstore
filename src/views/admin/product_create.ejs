@@ -1,0 +1,75 @@
+<%- include ('../partials/_header_admin.ejs') %>
+<body>
+<div class="container">
+   
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+            </tr>
+          
+            <tr>
+                <td >
+                    <div><img src="<%=book.image%>" width="200px" height="300px" id="image" alt="Product image">
+                        <div>
+                            <input type="file" id="image_input">
+                        </div></div>
+                </td>
+                <td >
+                    <textarea rows="3" cols="30" id="title"><%=book.title%> </textarea>
+                </td>
+                <td >
+                    <textarea rows="1" cols="10" id="price"><%=book.price%> </textarea>
+                </td>
+                <td >
+                    <textarea rows="10" cols="30" id="description"><%=book.description%> </textarea>
+                </td>
+            </tr>
+            <tr>
+               <td colspan="4"> <button class="btn btn-success" onclick="createProduct()"> Create</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+const image = document.getElementById('image');
+const image_input = document.getElementById("image_input");
+image_input.onchange = e => {
+  const [file] = image_input.files
+  if (file) {
+    image.src = URL.createObjectURL(file)
+  }
+};
+
+async function createProduct(){
+    const formData = new FormData();
+    const image = document.getElementById('image_input');
+    const [file] = image_input.files;
+   
+    const price = document.getElementById('price').value;
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
+    if(file && price && title) {
+        formData.append("image", file);
+        const result = await axios.post('/admin/products/create',{ price, title, description})
+        console.log(result)
+        axios.put(`/admin/products/${result.data.book.id}/edit/image`, formData, {
+        headers: {
+        'Content-Type': 'multipart/form-data'
+        }}).then(result =>{
+               /*  window.location = '/admin/products' */
+        })
+    }
+    else window.alert("Please fill in information")
+}
+</script>
+
+
+</body>
+</html>

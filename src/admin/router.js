@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const checkAuthorization = require('../../middleware/checkAuthorization');
+const checkAuthorization = require('../middleware/checkAuthorization');
 const adminController = require('./controller')
 const day = require('dayjs')
 const multer = require('multer');
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     }
   })
 const upload = multer({ storage : storage});
-const db = require('../../models');
+const db = require('../models');
 
 router.get('/', checkAuthorization, adminController.index );
 router.get('/products', checkAuthorization, adminController.getProducts);

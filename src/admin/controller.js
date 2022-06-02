@@ -1,16 +1,16 @@
-const db = require("../../models");
+const db = require("../models");
 const BaseRepo = require("../interfaces/BaseRepo");
 const { QueryTypes  } = require('sequelize')
 const orderService = new BaseRepo(db.Order);
-const order_itemsSevice = new BaseRepo(db.Order_items);
+const order_itemsSevice = new BaseRepo(db.Order_item);
 const bookService = require('../book/service')
 
 class AdminController {
     index = async (req, res) =>{
-        const totalProduct = bookService.count();
-        const totalOrder = orderService.count();
-        const [{sum: totalOrderMoney}] = await orderService.sum("total");
-        const [{sum: totalProductSold}] = await order_itemsSevice.sum("amount");
+        const totalProduct = await bookService.count();
+        const totalOrder = await orderService.count();
+        const [{ sum: totalOrderMoney}] = await orderService.sum("total");
+        const [{ sum: totalProductSold}] = await order_itemsSevice.sum("amount");
         res.render('admin/dashboard', {totalProduct  , totalOrder, totalOrderMoney, totalProductSold});
     }
     getProducts = async (req, res) =>{

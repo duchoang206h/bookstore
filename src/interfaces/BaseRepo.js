@@ -1,4 +1,4 @@
-const { sequelize } = require("../../models");
+const { sequelize } = require("../models");
 
 module.exports =  class BaseRepo {
 
@@ -35,7 +35,8 @@ module.exports =  class BaseRepo {
 
     async sum(field){
         return await this.model.findAll({
-            attributes :[[sequelize.fn('sum', sequelize.col(field), "sum")]]
+            attributes :[[sequelize.fn('sum', sequelize.col(field)), 'sum']],
+            raw: true
         })
     }
 }
