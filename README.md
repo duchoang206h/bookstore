@@ -19,5 +19,5 @@ Book store implement in Nodejs and Postgres
 # Contribute
 Any contribute is welcome
 
-# Conduct of control
+# Code of conduct
 Readmore: 
