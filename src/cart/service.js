@@ -1,7 +1,7 @@
-const BaseService = require('../interfaces/BaseService')
+const BaseRepo = require('../interfaces/BaseRepo')
 const db = require("../../models");
 const { QueryTypes } = require("sequelize");
-class CartService extends BaseService{
+class CartService extends BaseRepo{
     constructor(model) {
         super(model);
     }

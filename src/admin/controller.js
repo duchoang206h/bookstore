@@ -1,8 +1,8 @@
 const db = require("../../models");
-const BaseService = require("../interfaces/BaseService");
+const BaseRepo = require("../interfaces/BaseRepo");
 const { QueryTypes  } = require('sequelize')
-const orderService = new BaseService(db.Order);
-const order_itemsSevice = new BaseService(db.Order_items);
+const orderService = new BaseRepo(db.Order);
+const order_itemsSevice = new BaseRepo(db.Order_items);
 const bookService = require('../book/service')
 
 class AdminController {

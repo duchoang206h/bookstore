@@ -1,6 +1,6 @@
 const { sequelize } = require("../../models");
 
-module.exports =  class BaseService {
+module.exports =  class BaseRepo {
 
     constructor( model){
         this.model = model
