@@ -1,16 +1,16 @@
 const db = require("../models");
 const BaseRepo = require("../interfaces/BaseRepo");
 const { QueryTypes  } = require('sequelize')
-const orderService = new BaseRepo(db.Order);
-const order_itemsSevice = new BaseRepo(db.Order_item);
+const orderRepo = new BaseRepo(db.Order);
+const order_itemsRepo = new BaseRepo(db.Order_item);
 const bookService = require('../book/service')
 
 class AdminController {
     index = async (req, res) =>{
         const totalProduct = await bookService.count();
-        const totalOrder = await orderService.count();
-        const [{ sum: totalOrderMoney}] = await orderService.sum("total");
-        const [{ sum: totalProductSold}] = await order_itemsSevice.sum("amount");
+        const totalOrder = await orderRepo.count();
+        const [{ sum: totalOrderMoney}] = await orderRepo.sum("total");
+        const [{ sum: totalProductSold}] = await order_itemsRepo.sum("amount");
         res.render('admin/dashboard', {totalProduct  , totalOrder, totalOrderMoney, totalProductSold});
     }
     getProducts = async (req, res) =>{
@@ -59,15 +59,14 @@ class AdminController {
         const orders = await db.sequelize.query(
             `select * from orders 
              inner join order_items 
-               on order.id = order_items.order_id
-            
-       `, { type :QueryTypes.SELECT })
+               on order.id = order_items.order_id`
+            , { type :QueryTypes.SELECT })
         res.render('admin/order', { orders })
     }
     updateOrder = async (req, res) => {
         try {
             const { id } = req.body;
-            await orderService.update(id, { status : 1});
+            await orderRepo.update(id, { status : 1});
             res.status(200).json({ msg:"Update success"});
         }catch (e) {
             res.status(500).json({ msg:"Internal error"})
