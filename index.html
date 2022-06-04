@@ -1,0 +1,95 @@
+
+      <!doctype html>
+      <html>
+        <head>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+          <!-- Place your kit's code here -->
+          <script src="https://kit.fontawesome.com/8b8423bde1.js" crossorigin="anonymous"></script>
+        <style>
+            #cart{
+                z-index: 2;
+                height: 100%;
+                width: 40%;
+                float: right;
+                border: 2px solid;
+            }
+        </style>
+        </head>
+
+        <body>
+            
+ 
+            <div id="cart" class="col-md-12 pad-left-12 top-pad-10 pushy pushy-right" style="visibility: visible;">
+                <div class="row ">
+                    <div class="col-sm-12 text-right">
+                        <button class="pushy-link btn btn-primary" type="button"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            <use xlink:href="/dist/feather-sprite.svg#x"></use>
+        </svg></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="cart" class="col-md-12">
+                    <div class="card top-marg-15 bottom-marg-15">
+                        <div class="card-body cart-body">
+                            <h5 class="card-title">Cart contents</h5>
+                            <div class="cartBodyWrapper">
+            <div class="d-flex flex-row bottom-pad-15">
+                <div class="p-2 cart-product">
+                    <div class="row h-200">
+                        <div class="col-4 col-md-3 no-pad-left">
+                            <img class="img-fluid" src="https://files.markmoffat.com/backpack.jpeg" alt="Hudderton Backpack product image">
+                        </div>
+                        <div class="col-8 col-md-9">
+                            <div class="row">
+                                <div class="col-12 no-pad-left mt-md-4">
+                                    <h6><a href="/product/hudderton-backpack">Hudderton Backpack</a></h6>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6 no-pad-left mb-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-primary btn-qty-minus" type="button">-</button>
+                                        </div>
+                                        <input type="number" class="form-control cart-product-quantity text-center" data-cartid="618115f055afee83b21edd0b" data-id="618115f055afee83b21edd0b" maxlength="2" value="25">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary btn-qty-add" type="button">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-2 no-pad-left">
+                                    <button class="btn btn-danger btn-delete-from-cart" data-cartid="618115f055afee83b21edd0b" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2" data-cartid="618115f055afee83b21edd0b"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button>
+                                </div>
+                                <div class="col-8 col-md-4 align-self-center text-right">
+                                    <strong class="my-auto">£2450.00</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+                            <div class="cartTotalsWrapper">
+        <div class="d-flex flex-row">
+            <div class="cart-contents-shipping col-md-12 no-pad-right">
+                <div class="text-right">
+                    <span id="shipping-amount">FREE shipping</span>
+                </div>
+                
+                <div class="text-right">
+                    Total:
+                    <strong id="total-cart-amount">£2450.00</strong>
+                </div>
+            </div>
+        </div></div>
+                        </div>
+                    </div>                        <div class="row">
+                    <div class="col-sm-12 cart-buttons">
+                        <button class="btn btn-danger float-left" id="empty-cart" type="button">Empty cart</button>
+                        <a href="/checkout/information" class="btn btn-primary float-right">Checkout</a>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+      </html>
+      

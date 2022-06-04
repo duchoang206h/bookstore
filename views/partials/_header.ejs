@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+
+<body>
+   <div>
+    <nav class="navbar navbar-expand-lg justify-content-between mainNavBar">
+        <a class="navbar-brand" href="/">
+        IT BookStore
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-user"></i>
+       
+        </button>
+        <div id="navbarText">
+            <ul class="navbar-nav ml-auto">
+                
+            <li class="nav-item ml-3"><a href="/users/login" class="btn">           
+            <img src="/images/user.png" height="20px" width="20px"></a></li>
+            <li class="nav-item" id="cart_btn"><a href="https://expresscart-demo.markmoffat.com/checkout/cart" class="btn menu-btn">
+             Cart <span class="badge badge-danger" id="cart-count"><%= cart_item%></span></a></li>
+            </ul>
+        </div>
+    </nav>
+   
+   </div>

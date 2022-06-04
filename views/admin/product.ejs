@@ -1,0 +1,66 @@
+<%- include ('../partials/_header_admin.ejs') %>
+
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <a class="btn btn-success" style="margin-bottom: 10px;" href="/admin/products/create">ADD</a>
+
+        <form class="form-inline" action="" method="get">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <% books.forEach(book => { %>
+            <tr>
+                <td>
+                    <img src="<%=book.image%>" width="200px" height="300px">
+                </td>
+                <td>
+                    <%=book.title%>
+                </td>
+                <td>
+                    <%=book.price%>
+                </td>
+                <td>
+                    <% if(book.description){ %>
+                        <%=book.description.substring(0,200)%>
+                      <% } else{ %>  
+                       ""
+                     <% } %>
+                    
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="/admin/products/<%=book.id%>/edit">Edit</a>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteProduct('<%=book.id%>')">Delete</button>
+                </td>
+            </tr>
+                
+             <% }) %> 
+        </tbody>
+    </table>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+async function deleteProduct(id){
+    const checked =   window.confirm("Are you realy want to delete this product?")
+    if(checked) {
+        const result = await axios.delete(`/admin/products/${id}/delete`);
+        window.location = '/admin/products'
+    }
+}
+</script>
+</body>
+</html>

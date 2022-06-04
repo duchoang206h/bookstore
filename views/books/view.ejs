@@ -1,0 +1,32 @@
+<%- include ('../partials/_header_cart.ejs')  %>
+
+    <div class="container mt-4">
+        <div class="jumbotron position-relative">
+            <div class="row">
+                
+                <div class="col-md-4 d-flex flex-column align-items-center justify-content-center">
+                    <img style="width: 18rem;" src="<%= book.image %> " alt="" class="view-img-book img-responsive">
+                </div>
+                <div class="col-md-8">
+                    <h1 class="display-4 text-success text-center"><%= book.title %></h1>
+                    <hr class="my-2">
+                    
+                    <h3 class="lead text-danger">Price: <%= book.price %> VND</h3>
+                    <hr class="mb-2">
+                   
+                   
+                   
+                    <button type="button" class="btn btn-warning" onclick="addToCart('<%= book.id %>')">Add to Cart</button>
+                <hr class="my-2">
+                    
+                <h3 class="lead text-danger">Description</h3>
+                <hr class="mb-2">
+                    <p><%= book.description %></p> 
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+<%- include ('../partials/_footer.ejs')  %> 
