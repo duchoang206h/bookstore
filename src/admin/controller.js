@@ -2,6 +2,7 @@ const db = require("../models");
 const BaseRepo = require("../interfaces/BaseRepo");
 const { QueryTypes  } = require('sequelize')
 const orderRepo = new BaseRepo(db.Order);
+
 const order_itemsRepo = new BaseRepo(db.Order_item);
 const bookService = require('../book/service')
 
@@ -57,16 +58,29 @@ class AdminController {
     }
     getOrders =  async (req, res) => {
         const orders = await db.sequelize.query(
-            `select * from orders 
-             inner join order_items 
-               on order.id = order_items.order_id`
-            , { type :QueryTypes.SELECT })
-        res.render('admin/order', { orders })
+            `select Transactions.status , Orders.id, Orders.phone_number, Orders.address, Orders.user_id, Orders.fullname, Orders.createdAt, Orders.total  from Orders 
+                inner join Transactions
+                on Orders.id = Transactions.order_id   
+            `
+            , { type : QueryTypes.SELECT });
+        const result = await Promise.all(orders.map(async order => {
+            order.items =  await db.sequelize.query(
+                `select Books.title, Books.price, Order_items.amount from Order_items 
+                 inner join  Books
+                   on Order_items.book_id = Books.id
+                   where Order_items.order_id = ?
+                   `
+                , { replacements: [order.id],
+                    type : QueryTypes.SELECT });
+            return order
+        })) 
+        res.render('admin/order', { orders: result })
     }
     updateOrder = async (req, res) => {
         try {
-            const { id } = req.body;
-            await orderRepo.update(id, { status : 1});
+            const id  = req.params.id;
+            console.log(id)
+            await db.Transaction.update({status: 1 }, {where:{ order_id: id}});
             res.status(200).json({ msg:"Update success"});
         }catch (e) {
             res.status(500).json({ msg:"Internal error"})
