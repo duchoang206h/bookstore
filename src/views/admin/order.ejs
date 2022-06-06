@@ -8,6 +8,7 @@
             <th>Name</th>
             <th>Phone number</th>
             <th>Address</th>
+            <th>Time</th>
             <th >Items</th>
             <th>Total</th>
             <th>Status</th>
@@ -28,10 +29,14 @@
                 <%=order.address%>
             </td>
             <td>
-
-                   <p>GGGG</p>
-                    <p>GGGG</p>
-                    <p>GGGG</p>
+                <%=order.createdAt%>
+            </td>
+            <td>
+                <% order.items.forEach(item => { %>
+                    <p><%=item.title%></p> 
+                    <p><%=item.price%> x <%=item.amount%> </p>   
+                    <% })
+                    %>
 
             </td>
             <td>
@@ -45,10 +50,12 @@
                 <% } %>
             </td>
             <td>
-                <button class="btn btn-danger" onclick="deliver('<%=order.id%>')">Mark as delivered</button>
+                <% if (!order.status) { %>
+                    <button class="btn btn-danger" onclick="deliver('<%=order.id%>')">Mark as delivered</button>
+                <%}%>
+                
             </td>
         </tr>
-
         <% }) %>
         </tbody>
     </table>
@@ -56,6 +63,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+    axios.defaults.withCredentials = true
     async function deliver(id){
         const checked =   window.confirm("Confirm?")
         if(checked) {
