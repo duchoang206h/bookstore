@@ -7,21 +7,7 @@ const db = require('../models');
 const { QueryTypes } = require('sequelize');
 const userController = require('./controller')
 // Users Login Route
-router.get('/login', userController.getLogin);
 
-// Users Login Post Route
-router.post(
-    '/login',
-    passport.authenticate('local', {
-        successFlash: true,
-        successRedirect: '/users/dashboard',
-        failureFlash: true,
-        failureRedirect: '/users/login',
-    }),
-
-);
-
-router.get('/logout', userController.logout);
 
 // Cart Route
 router.put('/cart', checkAuthentication, userController.addItemToCart);
