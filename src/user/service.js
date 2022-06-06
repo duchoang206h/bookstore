@@ -7,6 +7,19 @@ class UserService extends BaseRepo{
     constructor(model) {
         super(model);
     }
+
+    findByEmail = async (email)=>{
+        return await this.model.findOne({where:{ email} })
+    }
+    findOrCreate =  async (whereOject, defaultOject) =>{
+        return this.model.findOrCreate({
+            where: whereOject,
+            default: defaultOject
+        })
+    }
+    findOne =  async (whereOject) =>{
+        return this.model.findOne({ where: whereOject})
+    }
     /***
      * @param {object} orderInfor
      * @param { string} orderInfor.phone_number
@@ -20,8 +33,6 @@ class UserService extends BaseRepo{
         console.log(orderInfor)
         const t = await db.sequelize.transaction();
         try {
-          
-
             const total  =  await cartService.totalItemPrice(orderInfor.user_id);
             
             const order = await db.Order.create({ phone_number: orderInfor.phone_number, address: orderInfor.address,
