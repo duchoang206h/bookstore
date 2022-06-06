@@ -1,5 +1,5 @@
 const db = require("../models");
-const BaseRepo = require("../interfaces/BaseRepo");
+const BaseRepo = require("../repo/BaseRepo");
 const { QueryTypes  } = require('sequelize')
 const orderRepo = new BaseRepo(db.Order);
 const adminService = require('./service')

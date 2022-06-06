@@ -1,4 +1,4 @@
-const BaseService = require('../interfaces/BaseRepo');
+const BaseService = require('../repo/BaseRepo');
 const db = require('../models')
  class CategoryService extends BaseService{
     constructor(model) {

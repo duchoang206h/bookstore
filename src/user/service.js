@@ -1,4 +1,4 @@
-const BaseRepo = require('../interfaces/BaseRepo');
+const BaseRepo = require('../repo/BaseRepo');
 
 const db = require("../models");
 const { QueryTypes } = require("sequelize");
