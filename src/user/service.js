@@ -30,7 +30,6 @@ class UserService extends BaseRepo{
      * @param { string} orderInfor.type
      * */
     placeOrder = async  (orderInfor) =>{
-        console.log(orderInfor)
         const t = await db.sequelize.transaction();
         try {
             const total  =  await cartService.totalItemPrice(orderInfor.user_id);
@@ -64,4 +63,4 @@ class UserService extends BaseRepo{
         }
     }
 }
-module.exports = new UserService();
+module.exports = new UserService(db.User);

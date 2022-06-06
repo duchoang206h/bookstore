@@ -8,28 +8,6 @@ const cartService = require('../cart/service');
 const userService = require('./service')
 
 class UserController {
-    getLogin = async (req, res) =>{
-        if(req.user){
-            if(req.session.user.role_id == ROLE_USER) return res.redirect('/');
-            else return res.redirect('/admin');
-        }
-        else{
-            return res.render('users/login')
-        }
-    }
-    login = async (req, res) =>{
-        if(req.user){
-            if(req.session.user.role_id == ROLE_USER) return res.redirect('/');
-            else return res.redirect('/admin');
-        }
-        else{
-            return res.render('users/login')
-        }
-    }
-    logout = (req, res) => {
-        req.logOut();
-        res.redirect('/books');
-    }
 
     addItemToCart =  async (req, res) =>{
        try {
@@ -87,6 +65,13 @@ class UserController {
             })
         if(result) return res.render('users/thankyou');
         return res.render('users/checkoutError')
+    }
+    getProfile = (req, res) => res.render('users/profile', { user: req.session.user});
+    updateProfile = async (req, res) => {
+        console.log(req.body)
+        const user = await userService.update(req.session.user.id, req.body);
+        req.session.user = Object.assign({},req.session.user, req.body );
+        res.render('users/profile', { user:  req.session.user });
     }
 }
 module.exports = new UserController()

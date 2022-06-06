@@ -2,7 +2,7 @@ const db = require("../models");
 const BaseRepo = require("../interfaces/BaseRepo");
 const { QueryTypes  } = require('sequelize')
 const orderRepo = new BaseRepo(db.Order);
-
+const adminService = require('./service')
 const order_itemsRepo = new BaseRepo(db.Order_item);
 const bookService = require('../book/service')
 
@@ -24,7 +24,8 @@ class AdminController {
     }
     getProductEdit = async (req, res) =>{
         const book = await bookService.findById(req.params.id);
-        res.render('admin/product_edit', { book });
+        const categories = await db.Category.findAll()
+        res.render('admin/product_edit', { book, categories });
     }
     updateProductImage = async (req, res) =>{
        try {
@@ -49,32 +50,17 @@ class AdminController {
      };
 
     getCreateProduct = async (req, res) => {
-        res.render('admin/product_create')
+        const categories = await db.Category.findAll()
+        res.render('admin/product_create', {categories})
      };
     createProduct = async (req, res) => {
-        const { price, title, description } = req.body;
-        const book = await bookService.create({price, title, description});
+        const { price, title, description, category_id } = req.body;
+        const book = await bookService.create({ price, title, description, category_id});
         res.status(200).json({book})
     }
     getOrders =  async (req, res) => {
-        const orders = await db.sequelize.query(
-            `select Transactions.status , Orders.id, Orders.phone_number, Orders.address, Orders.user_id, Orders.fullname, Orders.createdAt, Orders.total  from Orders 
-                inner join Transactions
-                on Orders.id = Transactions.order_id   
-            `
-            , { type : QueryTypes.SELECT });
-        const result = await Promise.all(orders.map(async order => {
-            order.items =  await db.sequelize.query(
-                `select Books.title, Books.price, Order_items.amount from Order_items 
-                 inner join  Books
-                   on Order_items.book_id = Books.id
-                   where Order_items.order_id = ?
-                   `
-                , { replacements: [order.id],
-                    type : QueryTypes.SELECT });
-            return order
-        })) 
-        res.render('admin/order', { orders: result })
+        const orders =  await adminService.getOrders();
+        res.render('admin/order', { orders })
     }
     updateOrder = async (req, res) => {
         try {

@@ -11,6 +11,7 @@
                 <th>Description</th>
                 <th></th>
                 <th></th>
+                <th>Category</th>
             </tr>
           
             <tr>
@@ -29,6 +30,19 @@
                 <td >
                     <textarea rows="10" cols="30" id="description"><%=book.description%> </textarea>
                 </td>
+                 <td></td>
+                 <td></td>
+                 <td>
+                    <select id="category" class="select" style="display:inline ;" >
+                        <% categories.forEach(category => { %>
+                            <option value="<%=category.id%>"
+                                <% if( book.category_id == category.id) { %>
+                                    selected
+                            <%}  %> ><%=category.name%></option>
+                        <% })
+                        %>
+                    </select>
+                 </td>
             </tr>
             <tr>
                <td colspan="4"> <button class="btn btn-success" onclick="editProduct('<%=book.id%>')"> Save</button></td>
@@ -61,10 +75,12 @@ async function editProduct(id){
     const price = document.getElementById('price').value
     const title = document.getElementById('title').value
     const description = document.getElementById('description').value
+    const category_id = document.getElementById('category').value
+    console.log(category_id)
     const result = await axios.put(`/admin/products/${id}/edit`, {
-        price, title, description
+        price, title, description, category_id
     })
-    console.log(result)
+  
     if(result.status ==200){
        window.alert("Update success")
     
