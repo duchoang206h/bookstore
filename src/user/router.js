@@ -8,7 +8,8 @@ const { QueryTypes } = require('sequelize');
 const userController = require('./controller')
 // Users Login Route
 
-
+router.get('/account/profile', checkAuthentication, userController.getProfile);
+router.post('/account/profile', checkAuthentication, userController.updateProfile);
 // Cart Route
 router.put('/cart', checkAuthentication, userController.addItemToCart);
 router.put('/cart/:id',checkAuthentication, userController.modifyCartItem);

@@ -3,6 +3,6 @@ module.exports = function(req, res, next){
         next();
     }else{
      //   req.flash('error', `You Need to be logged in First`);
-        res.redirect('/users/login');
+        res.redirect('/auth/login');
     }
 };

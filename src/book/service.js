@@ -11,5 +11,12 @@ const { Op } = require('sequelize')
                 [Op.like]: `%${title}%`
             }}})
     }
+    async searchByCategory (id){
+        return await this.model.findAll({
+            where:{
+                category_id: id
+            }
+        })
+    }
 }
 module.exports = new BookService(db.Book);

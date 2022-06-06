@@ -11,28 +11,43 @@
                 <th>Description</th>
                 <th></th>
                 <th></th>
+                <th>Category</th>
             </tr>
           
             <tr>
                 <td >
-                    <div><img src="<%=book.image%>" width="200px" height="300px" id="image" alt="Product image">
+                    <div><img src="" width="200px" height="300px" id="image" alt="Product image">
                         <div>
                             <input type="file" id="image_input">
                         </div></div>
                 </td>
                 <td >
-                    <textarea rows="3" cols="30" id="title"><%=book.title%> </textarea>
+                    <textarea rows="3" cols="30" id="title"> </textarea>
                 </td>
                 <td >
-                    <textarea rows="1" cols="10" id="price"><%=book.price%> </textarea>
+                    <textarea rows="1" cols="10" id="price"> </textarea>
                 </td>
                 <td >
-                    <textarea rows="10" cols="30" id="description"><%=book.description%> </textarea>
+                    <textarea rows="10" cols="30" id="description"> </textarea>
                 </td>
+                <td></td>
+                <td></td>
+                <td>
+                   
+                        <select id="category" class="select" style="display:inline ;">
+                            <% categories.forEach(category => { %>
+                                <option value="<%=category.id%>"><%=category.name%></option>
+                            <% })
+                            %>
+                        </select>
+                    
+                </td>
+             
             </tr>
             <tr>
                <td colspan="4"> <button class="btn btn-success" onclick="createProduct()"> Create</button></td>
             </tr>
+            
         </tbody>
     </table>
 </div>
@@ -55,6 +70,9 @@ async function createProduct(){
     const price = document.getElementById('price').value;
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
+    const category_id = document.getElementById('category').value;
+
+    console.log(category_id)
     if(file && price && title) {
         formData.append("image", file);
         const result = await axios.post('/admin/products/create',{ price, title, description})

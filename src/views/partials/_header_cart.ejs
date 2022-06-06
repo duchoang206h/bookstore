@@ -22,7 +22,7 @@
         <div id="navbarText">
             <ul class="navbar-nav ml-auto">
                 
-            <li class="nav-item ml-3"><a href="/auth/login" class="btn">           
+            <li class="nav-item ml-3"><a href="/users/account/profile" class="btn">           
             <img src="/images/user.png" height="20px" width="20px"></a></li>
             <li class="nav-item" id="cart_btn"><a href="/users/cart" class="btn menu-btn">
              Cart <span class=""  id="cart-count"><img width="25px" height="25px" src="/images/cart.png"/></span></a></li>
@@ -41,12 +41,14 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Categoy
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <% if(typeof categories == 'object' && categories){ %>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <% categories.forEach(category => { %>
+                        <a class="dropdown-item" href="/books?category=<%=category.id%>"><%=category.name%></a>
+                     <% }) %> 
+                </div>
+              <% }  %>
+           
           </li>
     </ul>
     <form class="form-inline ml-auto" action="/books", method="get">
