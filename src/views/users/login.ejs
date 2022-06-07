@@ -1,7 +1,7 @@
 <%- include ('../partials/_header_cart.ejs')  %>
 
             <div class="col-md-4 offset-md-4 top-pad-100">
-                <form class="form-signin" action="/users/login"  method="post" role="form" data-toggle="validator">
+                <form class="form-signin" action="/auth/login"  method="post" role="form" data-toggle="validator">
                     <input type="hidden" name="frm_referringUrl" value="{{referringUrl}}">
                     <h2 class="form-signin-heading">Please sign in</h2>
                     <div class="form-group">
@@ -10,13 +10,15 @@
                     <div class="form-group">
                         <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                         <a href="/auth/register"> Sign up</a>
+                        
+                        <a href="/auth/resetpassword"> Forget password</a>
                     </div>
                     <button class="btn  btn-outline-primary btn-block" id="loginForm" type="submit">Sign in</button>
                 </form>
                 <form action="/auth/login/google" method="get">
                     <button class="btn  btn-outline-primary btn-block mb-1 mt-1" id="loginForm" type="submit" >Sign in with Google</button>
                 </form>
-                <form action="/auth/login/google" method="get">
+                <form action="/auth/login/github" method="get">
                     <button class="btn  btn-outline-primary btn-block" id="loginForm" type="submit">Sign in with Github</button>
                 </form>
                 </div>
