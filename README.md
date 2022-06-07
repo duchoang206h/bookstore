@@ -14,7 +14,8 @@ Book store implement in Nodejs and Postgres
 * Database schema: https://dbdiagram.io/d/6239f084bed6183873dae39a
 * ORM: Sequelize
 * Template engine: ejs
-* Passportjs, 
+* Oauth2 (Google, Github)
+* Passportjs, CronJob, NodeMailer
 
 # Contribute
 Any contribute is welcome
