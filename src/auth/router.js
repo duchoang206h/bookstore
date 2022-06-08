@@ -12,16 +12,7 @@ router.get('/login', authService.getLogin);
 router.get('/register', authService.getRegister);
 router.post('/register', authService.register);
 // Users Login Post Route
-router.post(
-    '/login',
-    passport.authenticate('local', {
-        successFlash: true,
-        successRedirect: '/users/account/profile',
-        failureFlash: true,
-        failureRedirect: '/auth/login',
-    }),
-
-);
+router.post('/login', passport.authenticate('local'), authService.loginLocal);
 
 router.get('/logout', checkAuthentication, authService.logout);
 router.get('/resetpassword', authService.getResetPassword);

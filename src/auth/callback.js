@@ -2,7 +2,6 @@ const db = require("../models")
 
 
 const callback = async (req,res) => {
-    console.log(req.user)
     const email = req.user.email || req.user._json.email
     const [user,_] = await db.User.findOrCreate(
         {   where:  { email },

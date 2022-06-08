@@ -27,7 +27,12 @@ const GithubStrategy = new Github(
   }
 );
 const LocalStrategy = new Local(
+  {
+    usernameField: "email",
+    passwordField: "password"
+ },
   async function(email, password, done) {
+    console.log(password)
     let user;
     try {
       user = await userService.findByEmail(email);

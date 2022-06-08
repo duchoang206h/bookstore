@@ -35,7 +35,8 @@ class AuthController {
     }
 
     loginLocal = async (req,res) =>{
-
+        req.session.user = req.user;
+        res.redirect('/')
     }
     loginWithSocailCallback = async (req, res) =>{
         const [user,_] = await db.User.findOrCreate(
