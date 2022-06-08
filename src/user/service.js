@@ -52,7 +52,7 @@ class UserService extends BaseRepo{
                 cart_items
                 ,{ transaction: t});
 
-            const transaction = await db.Transaction.create({ type: orderInfor.type, status: 1, user_id: orderInfor.user_id, order_id: order.id}, { transaction: t})
+            const transaction = await db.Transaction.create({ type: orderInfor.type, status: 0, user_id: orderInfor.user_id, order_id: order.id}, { transaction: t})
             await t.commit();
 
             return true
