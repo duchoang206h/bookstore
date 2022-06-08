@@ -5,15 +5,23 @@ const Github = require("passport-github2").Strategy;
 const Local = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
 const userService = require('../user/service');
-
+const db = require('../models')
 const GoogleStrategy = new Google(
   {
     clientID: google.client_id,
     clientSecret: google.client_secret,
     callbackURL: APP_URL+"/auth/login/google/callback",
   },
-  function (accessToken, refreshToken, profile, done) {
-    return done(null, profile);
+  async (accessToken, refreshToken, profile, done) => {
+    const email = profile.email || profile._json.email
+    const [user,_] = await db.User.findOrCreate(
+        {   where:  { email },
+            default: {
+                fullname: profile.displayName,
+                auth: profile.provider
+            }
+        });
+    return done(null, user);
   }
 );
 const GithubStrategy = new Github(
@@ -22,8 +30,16 @@ const GithubStrategy = new Github(
     clientSecret: github.client_secret,
     callbackURL: APP_URL+ "/auth/login/github/callback",
   },
-  function (accessToken, refreshToken, profile, done) {
-    return done(null, profile);
+  async (accessToken, refreshToken, profile, done) => {
+    const email = profile.email || profile._json.email
+    const [user,_] = await db.User.findOrCreate(
+        {   where:  { email },
+            default: {
+                fullname: profile.displayName,
+                auth: profile.provider
+            }
+        });
+    return done(null, user);
   }
 );
 const LocalStrategy = new Local(
@@ -32,7 +48,6 @@ const LocalStrategy = new Local(
     passwordField: "password"
  },
   async function(email, password, done) {
-    console.log(password)
     let user;
     try {
       user = await userService.findByEmail(email);
@@ -40,13 +55,13 @@ const LocalStrategy = new Local(
         return done(null, false, { message: 'No user by that email'});
       }
     } catch (e) {
+  
       return done(e);
     }
     let match = bcrypt.compareSync(password, user.password)
     if (!match) {
       return done(null, false, { message: 'Not a matching password'});
     }
-
     return done(null, user);
 
   }

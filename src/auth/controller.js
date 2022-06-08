@@ -34,22 +34,11 @@ class AuthController {
         res.redirect('/')
     }
 
-    loginLocal = async (req,res) =>{
+    login = async (req,res) =>{
         req.session.user = req.user;
-        res.redirect('/')
-    }
-    loginWithSocailCallback = async (req, res) =>{
-        const [user,_] = await db.User.findOrCreate(
-            {   where:  { email: req.user.email},
-                default: {
-                    fullname: req.user.displayName,
-                    auth: req.user.provider
-                }
-            });
-        req.session.user = user;
-        if(user.role_id == 1)  res.redirect('/admin')
+        if( req.session.user.role_id == ROLE_AMIN)  res.redirect('/admin')
         else res.redirect('/')
-        }
+    }
     getResetPassword = async (req, res) => res.render('users/resetPassword', { message:""});
         
     resetPassword = async (req, res) =>{
