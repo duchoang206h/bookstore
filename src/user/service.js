@@ -1,4 +1,4 @@
-const BaseRepo = require('../interfaces/BaseRepo');
+const BaseRepo = require('../repo/BaseRepo');
 
 const db = require("../models");
 const { QueryTypes } = require("sequelize");
@@ -30,7 +30,6 @@ class UserService extends BaseRepo{
      * @param { string} orderInfor.type
      * */
     placeOrder = async  (orderInfor) =>{
-        console.log(orderInfor)
         const t = await db.sequelize.transaction();
         try {
             const total  =  await cartService.totalItemPrice(orderInfor.user_id);
@@ -53,7 +52,7 @@ class UserService extends BaseRepo{
                 cart_items
                 ,{ transaction: t});
 
-            const transaction = await db.Transaction.create({ type: orderInfor.type, status: 1, user_id: orderInfor.user_id, order_id: order.id}, { transaction: t})
+            const transaction = await db.Transaction.create({ type: orderInfor.type, status: 0, user_id: orderInfor.user_id, order_id: order.id}, { transaction: t})
             await t.commit();
 
             return true
@@ -64,4 +63,4 @@ class UserService extends BaseRepo{
         }
     }
 }
-module.exports = new UserService();
+module.exports = new UserService(db.User);

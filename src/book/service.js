@@ -1,4 +1,4 @@
-const BaseRepo =require( "../interfaces/BaseRepo");
+const BaseRepo =require( "../repo/BaseRepo");
 const db = require('../models')
 const { Op } = require('sequelize')
  class BookService extends BaseRepo {
@@ -10,6 +10,13 @@ const { Op } = require('sequelize')
             title:{
                 [Op.like]: `%${title}%`
             }}})
+    }
+    async searchByCategory (id){
+        return await this.model.findAll({
+            where:{
+                category_id: id
+            }
+        })
     }
 }
 module.exports = new BookService(db.Book);

@@ -31,5 +31,6 @@ router.delete('/products/:id/delete', checkAuthorization ,adminController.delete
 
  router.get("/orders",checkAuthorization, adminController.getOrders)
 
-router.put('/orders/:id/update', checkAuthorization, adminController.updateOrder)
+router.put('/orders/:id/update', checkAuthorization, adminController.updateOrder);
+
 module.exports = router;

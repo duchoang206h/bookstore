@@ -8,6 +8,10 @@ class BookController {
          const books = await bookService.searchByTitle(req.query.search)
          return  res.render('books/home', {books, categories});
      }
+     if(req.query.category){
+        const books = await bookService.searchByCategory(req.query.category)
+        return  res.render('books/home', { books, categories});
+     }
      const books = await bookService.findAll();
      res.render('books/home', { books, categories});
  }
