@@ -16,7 +16,7 @@ Book store implement in Nodejs and Postgres
 * Template engine: ejs
 * Oauth2 (Google, Github)
 * Passportjs, CronJob, NodeMailer
-
+* Devtools: vscode, datagrip, docker, dbdiagram.io
 # Contribute
 Any contribute is welcome
 
