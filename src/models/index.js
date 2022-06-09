@@ -7,15 +7,16 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
 const db = {};
-
-
+const cert = fs.readFileSync(path.resolve(__dirname +'../../../skysql_chain.pem'), "utf8");
+console.log(cert)
 const sequelize = new Sequelize(config['DB_URL'], 
                   {
                     logging: false, 
                     dialectOptions: {
                     ssl: {
-                      require: true, 
-                      rejectUnauthorized: false 
+                     /*  require: true, 
+                      rejectUnauthorized: false  */
+                      ca: cert
                     }
                     }
                   })
