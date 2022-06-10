@@ -1,0 +1,27 @@
+create table Transactions
+(
+    id        int auto_increment
+        primary key,
+    type      varchar(191)                        null,
+    status    smallint                            null,
+    user_id   int                                 null,
+    order_id  int                                 null,
+    createdAt timestamp default CURRENT_TIMESTAMP not null,
+    updatedAt timestamp                           null on update CURRENT_TIMESTAMP,
+    constraint Transactions___orders_fk
+        foreign key (order_id) references Orders (id)
+            on update cascade on delete cascade,
+    constraint Transactions___users_fk
+        foreign key (user_id) references Users (id)
+);
+
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (2, 'cod', 1, 2, 11, '2022-05-29 12:06:12', '2022-06-06 12:15:51');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (6, 'cod', 1, 2, 30, '2022-05-31 10:39:51', '2022-05-31 10:39:51');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (7, 'cod', 1, 2, 31, '2022-05-31 10:40:17', '2022-06-06 12:15:57');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (8, 'cod', 1, 2, 32, '2022-05-31 10:40:41', '2022-06-06 12:16:00');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (9, 'cod', 1, 1, 33, '2022-06-06 08:39:12', '2022-06-06 08:39:12');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (10, 'cod', 1, 2, 34, '2022-06-06 13:03:11', '2022-06-06 13:03:11');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (11, 'cod', 1, 2, 35, '2022-06-06 14:33:51', '2022-06-06 14:33:51');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (12, 'cod', 1, 2, 36, '2022-06-07 11:35:28', '2022-06-07 11:35:28');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (13, 'cod', 1, 2, 37, '2022-06-07 12:02:01', '2022-06-07 12:02:01');
+INSERT INTO Transactions (id, type, status, user_id, order_id, createdAt, updatedAt) VALUES (14, 'cod', 1, 2, 38, '2022-06-08 07:38:23', '2022-06-08 07:40:00');
