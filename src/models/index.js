@@ -12,12 +12,6 @@ const db = {};
 const sequelize = new Sequelize(config['DB_URL'], 
                   {
                     logging: false, 
-                    /* dialectOptions: {
-                    ssl: {
-                      require: true, 
-                      rejectUnauthorized: false 
-                    }
-                    } */
                   })
 
 fs
