@@ -29,7 +29,7 @@ class AuthController {
         res.render('users/register', { message: ""})
     }
     register = async (req, res) =>{
-        if(! await authService.register(req.body.email, req.body.password, req.body.fullname, req.body.phone_number) )
+        if(!await authService.register(req.body.email, req.body.password, req.body.fullname, req.body.phone_number) )
             return res.render('users/register', { message:"Email exist!"});
         res.redirect('/')
     }
