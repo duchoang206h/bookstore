@@ -5,7 +5,9 @@ const Github = require("passport-github2").Strategy;
 const Local = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
 const userService = require('../user/service');
-const db = require('../models')
+const db = require('../models');
+const { USER_ACTIVE_CODE } = require("../constants");
+
 const GoogleStrategy = new Google(
   {
     clientID: google.client_id,
@@ -18,7 +20,8 @@ const GoogleStrategy = new Google(
         {   where:  { email },
             default: {
                 fullname: profile.displayName,
-                auth: profile.provider
+                auth: profile.provider,
+                active: USER_ACTIVE_CODE
             }
         });
     return done(null, user);
@@ -36,7 +39,8 @@ const GithubStrategy = new Github(
         {   where:  { email },
             default: {
                 fullname: profile.displayName,
-                auth: profile.provider
+                auth: profile.provider,
+                active: USER_ACTIVE_CODE
             }
         });
     return done(null, user);
