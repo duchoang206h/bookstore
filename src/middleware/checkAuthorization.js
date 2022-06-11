@@ -1,7 +1,7 @@
-const { ROLE_AMIN } = require('../constants')
-module.exports =  async function(req, res, next){
-    if(req.isAuthenticated()){
-         if(req.session.user.role_id == ROLE_AMIN){
+const { ROLE_ADMIN } = require('../constants')
+module.exports =  async (req, res, next) => {
+    if(req.session.user){
+         if(req.session.user.role_id == ROLE_ADMIN){
              next();
          }else{
               res.redirect('/');

@@ -26,6 +26,7 @@ class AuthService{
               phone_number,
               auth: "local"
           })
+
       } catch (error) {
           return false
       }

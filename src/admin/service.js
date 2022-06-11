@@ -5,7 +5,8 @@ class AdminService {
         const orders = await db.sequelize.query(
             `select Transactions.status , Orders.id, Orders.phone_number, Orders.address, Orders.user_id, Orders.fullname, Orders.createdAt, Orders.total  from Orders 
                 inner join Transactions
-                on Orders.id = Transactions.order_id   
+                on Orders.id = Transactions.order_id 
+                order by Orders.createdAt desc
             `
             , { type : QueryTypes.SELECT });
         return await Promise.all(orders.map(async order => {

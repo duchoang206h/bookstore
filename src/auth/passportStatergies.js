@@ -5,20 +5,23 @@ const Github = require("passport-github2").Strategy;
 const Local = require('passport-local').Strategy;
 const bcrypt = require('bcrypt')
 const userService = require('../user/service');
-const db = require('../models')
+const db = require('../models');
+const { USER_ACTIVE_CODE } = require("../constants");
+
 const GoogleStrategy = new Google(
   {
     clientID: google.client_id,
     clientSecret: google.client_secret,
     callbackURL: APP_URL+"/auth/login/google/callback",
   },
-  async (accessToken, refreshToken, profile, done) => {
+  async function (accessToken, refreshToken, profile, done) {
     const email = profile.email || profile._json.email
     const [user,_] = await db.User.findOrCreate(
         {   where:  { email },
             default: {
                 fullname: profile.displayName,
-                auth: profile.provider
+                auth: profile.provider,
+                active: USER_ACTIVE_CODE
             }
         });
     return done(null, user);
@@ -36,7 +39,8 @@ const GithubStrategy = new Github(
         {   where:  { email },
             default: {
                 fullname: profile.displayName,
-                auth: profile.provider
+                auth: profile.provider,
+                active: USER_ACTIVE_CODE
             }
         });
     return done(null, user);

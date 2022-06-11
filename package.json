@@ -21,8 +21,11 @@
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",
     "express": "^4.17.1",
+    "express-rate-limit": "^6.4.0",
     "express-session": "^1.17.3",
+    "helmet": "^5.1.0",
     "lodash": "^4.17.21",
+    "mariadb": "^3.0.0",
     "method-override": "^3.0.0",
     "moment": "^2.26.0",
     "mongoose": "^5.9.15",
@@ -38,7 +41,8 @@
     "pm2": "^5.2.0",
     "sequelize": "^6.19.0",
     "stripe": "^8.56.0",
-    "typeorm": "^0.3.6"
+    "typeorm": "^0.3.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
