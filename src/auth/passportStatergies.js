@@ -14,7 +14,7 @@ const GoogleStrategy = new Google(
     clientSecret: google.client_secret,
     callbackURL: APP_URL+"/auth/login/google/callback",
   },
-  async (accessToken, refreshToken, profile, done) => {
+  async function (accessToken, refreshToken, profile, done) {
     const email = profile.email || profile._json.email
     const [user,_] = await db.User.findOrCreate(
         {   where:  { email },

@@ -5,10 +5,11 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const day = require('dayjs');
 const mailServicee = require('../mail/mailService')
-const { ROLE_AMIN, ROLE_USER, BCRYPT_SALT_ROUNDS, RESET_PASSWORD_TEMPLATE, CONFIRM_EMAIL_TEMPLATE} = require('../constants');
+const { ROLE_ADMIN, ROLE_USER, BCRYPT_SALT_ROUNDS, RESET_PASSWORD_TEMPLATE, CONFIRM_EMAIL_TEMPLATE} = require('../constants');
 const { APP_URL } = require('../config/key');
 class AuthController {
     getLogin = async (req, res) =>{
+    
         if(req.session.user){
             if(req.session.user.role_id == ROLE_USER) return res.redirect('/users/account');
             else return res.redirect('/admin');
@@ -20,8 +21,8 @@ class AuthController {
   
     logout = async (req, res) => {
        
-        await  req.logOut();
-        await req.session.destroy();
+          req.logOut();
+         req.session.destroy();
 
         res.redirect('/books');
     }
@@ -46,10 +47,13 @@ class AuthController {
         }
     }
 
-    login = async (req,res) =>{
+    login = (req,res) =>{
         req.session.user = req.user;
-        if( req.session.user.role_id == ROLE_AMIN)  res.redirect('/admin')
-        else res.redirect('/')
+        req.session.save(()=>{
+            if( req.session.user.role_id == ROLE_ADMIN)  res.redirect('/admin')
+            else res.redirect('/')
+        })
+       
     }
     getResetPassword = async (req, res) => res.render('users/resetPassword', { message:""});
         

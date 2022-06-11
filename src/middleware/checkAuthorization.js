@@ -1,14 +1,12 @@
-const { ROLE_AMIN } = require('../constants')
+const { ROLE_ADMIN } = require('../constants')
 module.exports =  async (req, res, next) => {
-    if(req.isAuthenticated()){
-        console.log("AUthen")
-         if(req.session.user.role_id == ROLE_AMIN){
+    if(req.session.user){
+         if(req.session.user.role_id == ROLE_ADMIN){
              next();
          }else{
               res.redirect('/');
          }
     }else{
-        console.log("CLGGGDDSGDS")
         res.redirect('/auth/login');
     }
 };

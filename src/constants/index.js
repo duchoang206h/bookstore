@@ -156,7 +156,7 @@ const CONFIRM_EMAIL_TEMPLATE = (link) => `<!doctype html>
 
 </html>`
 module.exports = {
-    ROLE_AMIN :1,
+    ROLE_ADMIN :1,
     ROLE_USER :2,
     BCRYPT_SALT_ROUNDS: 10,
     RESET_PASSWORD_TEMPLATE,
