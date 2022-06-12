@@ -6,8 +6,14 @@ const passport = require('./auth/passport');
 const connectDB = require('./config/db');
 const db = require('./models');
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
+const helmet = require('helmet');
+const rateLimit = require('./middleware/rateLimit')
 
 
+
+app.use(require('express-status-monitor')());
+app.use(helmet());
+app.use(rateLimit)
 app.use(
 	session({
 		resave: false,
