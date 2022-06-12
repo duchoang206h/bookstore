@@ -10,7 +10,7 @@ Book store implement in Nodejs and Postgres
 # Tech use in this repo
 * css, js, bootstrap, fontawesome
 * Expressjs (Nodejs framework)
-* Database: Postgres
+* Database: Mysql
 * Database schema: https://dbdiagram.io/d/6239f084bed6183873dae39a
 * ORM: Sequelize
 * Template engine: ejs
