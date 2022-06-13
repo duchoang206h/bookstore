@@ -12,8 +12,8 @@ const rateLimit = require('./middleware/rateLimit')
 
 
 app.use(require('express-status-monitor')());
-//app.use(helmet());
-//app.use(rateLimit)
+app.use(helmet());
+app.use(rateLimit)
 app.use(
 	session({
 		resave: false,
