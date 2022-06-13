@@ -6,7 +6,7 @@ Book store implement in Nodejs and Postgres
 * Rename .env.example -> .env , add  key, config
 * npm install
 * npm run dev for development
-* Live demo: https://itbookstore.herokuapp.com/
+* Live demo: https://itbookstore.herokuapp.com/ (slow because heroku host at US/UK ,mysql at ASIA)
 
 # Tech use in this repo
 * css, js, bootstrap, fontawesome
