@@ -21,8 +21,8 @@ class AuthController {
   
     logout = async (req, res) => {
        
-          req.logOut();
-         req.session.destroy();
+        req.logOut();
+        req.session.destroy();
 
         res.redirect('/books');
     }
@@ -41,6 +41,7 @@ class AuthController {
             const token = await db.Token.create({user_id: newUser.id, token: hashToken, expired: day(Date.now()+ 3600000)})
             const link = APP_URL+`/auth/confirm?user_id=${newUser.id}&token=${hashToken}`;
             mailServicee.send(newUser.email, CONFIRM_EMAIL_TEMPLATE(link), "Confirm email");
+            
             res.render('users/register', { message:"A confirm email has been send to your mail"});
         } catch (error) {
             
