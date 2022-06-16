@@ -8,11 +8,23 @@ const db = require('./models');
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const helmet = require('helmet');
 const rateLimit = require('./middleware/rateLimit')
+const logger = require('morgan')
 
 
 
-app.use(require('express-status-monitor')());
-app.use(helmet());
+app.use(function (req, res, next) {
+	res.setHeader(
+		'Content-Security-Policy',
+		"frame-ancestors 'self'; default-src *; style-src * 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'; img-src 'self' blob: data:;"
+	);
+	next();
+});
+
+
+
+//app.use(require('express-status-monitor')());
+//app.use(logger());
+/*app.use(helmet());*/
 app.use(rateLimit)
 app.use(
 	session({

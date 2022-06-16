@@ -4,10 +4,11 @@ const checkAuthorization = require('../middleware/checkAuthorization');
 const adminController = require('./controller')
 const day = require('dayjs')
 const multer = require('multer');
-const { QueryTypes, Op } = require("sequelize")
+const { QueryTypes, Op } = require("sequelize");
+const path = require('path')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './public/images')
+      cb(null, path.resolve(__dirname, '../public/images'))
     },
     filename: function (req, file, cb) {
       const name = day().format('DD_MM_YYYY') + '_book_' + req.params.id + ".png"
