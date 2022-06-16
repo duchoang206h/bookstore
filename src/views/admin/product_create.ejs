@@ -81,7 +81,8 @@ async function createProduct(){
         headers: {
         'Content-Type': 'multipart/form-data'
         }}).then(result =>{
-               /*  window.location = '/admin/products' */
+            window.confirm("Create success!")
+               window.location.reload();
         })
     }
     else window.alert("Please fill in information")
