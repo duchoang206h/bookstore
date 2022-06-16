@@ -16,7 +16,7 @@ Book store implement in Nodejs and Postgres
 * ORM: Sequelize
 * Template engine: ejs
 * Oauth2 (Google, Github)
-* Passportjs, CronJob, NodeMailer
+* Passportjs, CronJob, NodeMailer, NodeCache, Bcrypt, session, ...
 * Devtools: vscode, datagrip, docker, dbdiagram.io
 * Resources: [mysql cloud database free](https://www.freesqldatabase.com/)
 # Contribute
