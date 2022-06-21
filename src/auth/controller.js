@@ -9,7 +9,6 @@ const { ROLE_ADMIN, ROLE_USER, BCRYPT_SALT_ROUNDS, RESET_PASSWORD_TEMPLATE, CONF
 const { APP_URL } = require('../config/key');
 class AuthController {
     getLogin = async (req, res) =>{
-    
         if(req.session.user){
             if(req.session.user.role_id == ROLE_USER) return res.redirect('/users/account');
             else return res.redirect('/admin');
