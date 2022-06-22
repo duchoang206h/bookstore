@@ -1,6 +1,6 @@
 Welcome
 
-Book store implement in Nodejs and Postgres
+Book store implement in Nodejs and Mysql
 
 # Installation:
 * Rename .env.example -> .env , add  key, config
