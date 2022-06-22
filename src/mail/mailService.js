@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 class MailService {
     constructor(){
-        console.log(process.env.MAIL_SERVER,  process.env.MAIL_PASSWORD)
         this.transporter = nodemailer.createTransport({
             service:'yahoo',
             host: 'smtp.mail.yahoo.com',

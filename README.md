@@ -11,7 +11,6 @@ Book store implement in Nodejs and Mysql
 * Paypal business sandbox account: sb-fmapq12435624@business.example.com - 3bqcs7Z<
 * User account: can login by Google
 * Admin account: admin - admin ( Please do not modify anything)
-
 # Tech use in this repo
 * css, js, bootstrap, fontawesome
 * Expressjs (Nodejs framework)

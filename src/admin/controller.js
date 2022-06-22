@@ -30,7 +30,7 @@ class AdminController {
     updateProductImage = async (req, res) =>{
        try {
         const newImg = "/images/"+ req.file.filename;
-        const book = await bookService.update(req.params.id, {image: newImg})
+        const book = await bookService.update(req.params.id, { image: newImg});
         res.status(200).json({book});
        } catch (error) {
         res.status(500).json({book: null});

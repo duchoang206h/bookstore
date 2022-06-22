@@ -26,7 +26,7 @@ module.exports =  class BaseRepo {
     }
 
     async  update (id , update){
-        return await  this.model.update(update, { where:{ id }})
+        return await this.model.update(update, { where:{ id: id }})
     }
 
     async delete  (id ) {
