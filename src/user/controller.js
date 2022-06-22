@@ -54,17 +54,25 @@ class UserController {
     }
 
     placeOrder = async (req, res) =>{
-        const  result = await userService.placeOrder(
-            {
-                user_id: req.session.user.id,
-                type:"cod",
-                address: req.body.address,
-                fullname:req.body.fullname,
-                phone_number: req.body.phone_number,
-                shipping: 0
-            })
-        if(result) return res.render('users/thankyou');
-        return res.render('users/checkoutError')
+        const paymentType = req.body.type;
+        const orderOject = {
+            user_id: req.session.user.id,
+            type: paymentType,
+            address: req.body.address,
+            fullname:req.body.fullname,
+            phone_number: req.body.phone_number,
+            shipping: 0
+        }
+        req.session.orderOject = orderOject;
+        switch(paymentType){
+            case "cod":
+                const  result = await userService.placeOrder(orderOject);
+                if(result) return res.render('users/thankyou');
+                return res.render('users/checkoutError');
+            case "paypal":
+                return res.redirect('/payment/paypal');
+        }
+       
     }
     getProfile = (req, res) => res.render('users/profile', { user: req.session.user});
     updateProfile = async (req, res) => {

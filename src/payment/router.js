@@ -1,32 +1,17 @@
 const router = require('express').Router();
-const paymentService = require('./service')
-const items =  [{
-    "name": "Red Sox Hat",
-    "sku": "001",
-    "price": "25.00",
-    "currency": "USD",
-    "quantity": 1
-}];
+const paymentService = require('./service');
+const userService = require('../user/service');
+const cartService = require('../cart/service');
+const { USD_DONG } = require('../constants');
+const paymentController = require('./controller')
 
-const amount =  {
-    "currency": "USD",
-    "total": "25.00"
-};
-router.get('/paypal',async (req, res) =>{
-    
-    
-    
-    const url = await paymentService.getRedirectUrlPaypal(items, amount);
-    
-    res.redirect(url);
-});
-router.get('/paypal/success', async (req, res) =>{
-    
-    console.log(req.query);
+//Redirect to paypal url payment
+router.get('/paypal', paymentController.getPaypalRedirectUrl);
 
-    const { PayerID, paymentId } = req.query;
-    
-    res.json(await paymentService.executePaymentPaypal(PayerID, paymentId, amount));
+//Payment success 
+router.get('/paypal/success', paymentController.paypalSuccess);
 
-});
+//Payment error
+router.get('/paypal/cancel', paymentController.paypalCancel);
+
 module.exports = router; 

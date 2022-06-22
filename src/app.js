@@ -11,7 +11,7 @@ const rateLimit = require('./middleware/rateLimit')
 const logger = require('morgan')
 
 
-
+// Set csp config
 app.use(function (req, res, next) {
 	res.setHeader(
 		'Content-Security-Policy',
@@ -21,10 +21,10 @@ app.use(function (req, res, next) {
 });
 
 
-
-//app.use(require('express-status-monitor')());
-//app.use(logger());
-/*app.use(helmet());*/
+//Monitor
+app.use(require('express-status-monitor')());
+/* app.use(logger()); */
+/* app.use(helmet()); */
 app.use(rateLimit)
 app.use(
 	session({
@@ -61,6 +61,6 @@ app.use('/users', require('./user/router'));
 app.use('/auth', require('./auth/router'));
 app.use('/admin', require('./admin/router'));
 app.use('/payment', require('./payment/router'));
-
+app.use('/', (req, res) => res.redirect('/books'));
 
 module.exports = app;

@@ -55,12 +55,22 @@ class UserService extends BaseRepo{
             const transaction = await db.Transaction.create({ type: orderInfor.type, status: 0, user_id: orderInfor.user_id, order_id: order.id}, { transaction: t})
             await t.commit();
 
-            return true
+            return true;
         }catch (e) {
-            console.log(e)
             await t.rollback();
             return false
         }
+    };
+    getOrderItems = async (user_id) =>{
+        return await db.sequelize.query(`
+        select Books.id, Books.title, Books.price, Cart_items.amount from Books
+        inner join Cart_items
+            on Cart_items.book_id = Books.id
+        where  Cart_items.cart_id in (
+                    select id from Carts where user_id = ?)`, {
+			replacements: [user_id],
+			type: QueryTypes.SELECT
+		    });
     }
 }
 module.exports = new UserService(db.User);

@@ -35,19 +35,8 @@ function create_payment_json (items, amount, description =""){
         "transactions": [{
             "item_list": {
                 "items": items
-                /*[{
-                    "name": "Red Sox Hat",
-                    "sku": "001",
-                    "price": "25.00",
-                    "currency": "USD",
-                    "quantity": 1
-                }]*/
             },
-            "amount": amount
-            /*{
-                "currency": "USD",
-                "total": "25.00"
-            }*/,
+            "amount": amount,
             "description": description
         }]
     }

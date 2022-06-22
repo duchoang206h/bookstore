@@ -29,9 +29,9 @@ class CartService extends BaseRepo{
        return await db.Cart_item.update({ amount: item.amount }, { where: {id: item.id}});
     }
     /**
-     *  @return {number}
+     *  @return {Promise}
      * **/
-    totalItemPrice = async ( user_id) =>{
+    totalItemPrice = async ( user_id) => {
        const total =  await db.sequelize.query(`
 			select sum(Cart_items.amount*Books.price) as total from Books
 				inner join Cart_items
@@ -41,8 +41,7 @@ class CartService extends BaseRepo{
             replacements: [user_id],
             type: QueryTypes.SELECT
         });
-        console.log(total)
-       return total[0].total
+       return total[0].total;
     }
 
      deleteItem = async(id) =>{
