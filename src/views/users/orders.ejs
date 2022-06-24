@@ -1,67 +1,134 @@
-<%- include ('../partials/_header.ejs') %>
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 lead">
-        <img src="https://cdn3.iconfinder.com/data/icons/book-shop-category-ouline/512/Book_Shop_Category-10-512.png" alt="" style="height: 2.5em; width: 2.5em;" class="img-thumbnail rounded-circle">
-        Book Store</span>
-    <span>
-        <a href="/users/dashboard" class="btn btn-sm btn-info">Go to Dashboard</a>  
-    </span>
-  </nav>
-  <%- include ('../partials/_msg.ejs')  %>
-  <div class="container mt-3">
+<%- include ('../partials/_header_admin.ejs') %>
+<div class="site-overlay"></div>
+    <div class="container-fluid content-body h-100" id="container">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <div class="container"><br><a href="/users/account/profile"><h2>Profile</h2></a></div>
+                
+              </li>
+              
+              
+              
+              <li class="nav-item sidebar-addon">
+               <div class="container"><br><a href="/users/account/orders"><h2>Order</h2></a></div>
+            
+              </li>
+
+              
+            </ul>
+
+            
+            
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+         
+          <div class="col-sm-12">
+            <h2>Orders</h2>
+          </div>
+          
+          
+          <table class="table">
+            <tbody>
+            <tr>
+                
+                <th>Name</th>
+                <th>Phone number</th>
+                <th>Address</th>
+                <th>Time</th>
+                <th >Items</th>
+                <th>Total</th>
+                <th>Status</th>
+            </tr>
+            <% orders.forEach(order => { %>
+            <tr>
+                
+                <td>
+                    <%=order.fullname%>
+                </td>
+                <td>
+                    <%=order.phone_number%>
+                </td>
+                <td>
+                    <%=order.address%>
+                </td>
+                <td>
+                    <%=order.createdAt%>
+                </td>
+                <td>
+                    <% order.items.forEach(item => { %>
+                        <p><%=item.title%></p> 
+                        <p><%=item.price%> x <%=item.amount%> = <%=item.total%></p>   
+                        <% })
+                        %>
     
-        <div class="jumbotron p-3">
-            <div class="d-flex justify-content-around" style="font-size: 25px; color: darkblue;">
-                <span>Your Orders Summary</span> 
-            </div>
-            <hr class="my-3">
-            <div class="container mt-2">
-                <table class="table table-bordered bg-light table-responsive-sm">
-                    <thead>
-                      <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Details</th>
-                        <th scope="col">Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <% orders.forEach(order=>{ %>
-                                <tr>
-                                    <td><%= order._id  %> </td>
-                                    <td class="text-danger">₹ <%= order.amount  %> </td>
-                                    <td>
-                                        <table class="table table-bordered bg-light table-responsive-sm">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">Title</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Quantity</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% order.details.forEach(cartItem=>{ %>
-                                                        <tr>
-                                                            <td><%= cartItem.book.title  %> </td>
-                                                            <td class="text-danger">₹ <%= cartItem.book.price  %> </td>
-                                                            <td>
-                                                                <%= cartItem.quantity %> 
-                                                            </td>
-                                                        </tr>
-                                                <% }) %>
-                                            </tbody>
-                                          </table>
-                                    </td>
-                                    <td>
-                                       <%= order.createdAt  %>
-                                    </td>
-                                </tr>
-                        <% }) %>
-                    </tbody>
-                  </table>
-            </div>
-            <hr class="my-3">
-        </div>
-  </div>
+                </td>
+                <td>
+                    <%=order.total%>
+                </td>
+                <td>
+                    <% if (order.status) { %>
+                        Delivering
+                    <%} else { %>
+                       Pending
+                    <% } %>
+                </td>
+               
+            </tr>
+            <% }) %>
+            </tbody>
+        </table>
+
+  
+          
+         <!--  <div style="height: 400px; width: 800px;">
+            <canvas id="myChart" width="1110px"></canvas>
+          </div> -->
+        </main>
+      </div>
+    </div>
+    
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
 
         <%- include ('../partials/_footer.ejs') %>

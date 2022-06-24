@@ -81,5 +81,11 @@ class UserController {
         req.session.user = Object.assign({},req.session.user, req.body );
         res.render('users/profile', { user:  req.session.user });
     }
+
+    getOrder = async (req, res) =>{
+        const orders = await userService.getOrders(req.session.user.id);
+
+        res.render('users/orders', { orders })
+    }
 }
 module.exports = new UserController()

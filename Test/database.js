@@ -1,11 +1,25 @@
-const db = require('../models');
+const db = require('../src/models');
 
 (async  () =>{
   await db.sequelize.authenticate();
-  const cart_items =  await  db.Cart_item.findAll({
-    include: db.Book
-  });
+  let orders = await db.Order.findAll({
+   where: {user_id: 2},
+  include:{ model: db.Order_item, as:"items", include:{ model: db.Book}},
 
-  const count = await db.Book.count();
-  console.log(count)
+  });
+  
+  orders = orders.map(order => {
+    let items = order.items.map( item =>{
+      return { 
+        amount: item['amount'],
+        title: item['Book'].title,
+        image: item['Book'].image,
+        price: item['Book'].price,
+        total: item['amount'] * item['Book'].price
+      }
+    });
+    
+    return Object.assign(order, { items})
+  });
+  console.log(orders[0])
 })()

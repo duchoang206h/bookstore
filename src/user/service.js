@@ -71,6 +71,33 @@ class UserService extends BaseRepo{
 			replacements: [user_id],
 			type: QueryTypes.SELECT
 		    });
+    };
+    getOrders = async (user_id) =>{
+        try {
+            let orders = await db.Order.findAll({
+                where: {user_id: user_id},
+               include:{ model: db.Order_item, as:"items", include:{ model: db.Book}},
+             
+               });
+               
+               orders = orders.map(order => {
+                 let items = order.items.map( item =>{
+                   return { 
+                     amount: item['amount'],
+                     title: item['Book'].title,
+                     image: item['Book'].image,
+                     price: item['Book'].price,
+                     total: item['amount'] * item['Book'].price
+                   }
+                 });
+                 
+                 return Object.assign(order, { items })
+               });
+               return orders
+    
+        } catch (error) {
+            return []
+        }
     }
 }
 module.exports = new UserService(db.User);

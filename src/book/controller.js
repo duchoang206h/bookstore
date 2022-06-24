@@ -11,11 +11,11 @@ class BookController {
      const skip = (page -1)* ITEMS_PER_PAGE;
      if(req.query.search){
          const books = await bookService.searchByTitle(req.query.search)
-         return  res.render('books/home', { books, categories });
+         return  res.render('books/home', { books, categories , pages});
      }
      if(req.query.category){
         const books = await bookService.searchByCategory(req.query.category)
-        return  res.render('books/home', { books, categories});
+        return  res.render('books/home', { books, categories, pages});
      }
      const books = await bookService.findAll({ limit: ITEMS_PER_PAGE, offset: skip});
      res.render('books/home', { books, categories, pages});

@@ -10,6 +10,7 @@ const userController = require('./controller')
 
 router.get('/account/profile', checkAuthentication, userController.getProfile);
 router.post('/account/profile', checkAuthentication, userController.updateProfile);
+router.get('/account/orders', checkAuthentication, userController.getOrder);
 // Cart Route
 router.put('/cart', checkAuthentication, userController.addItemToCart);
 router.put('/cart/:id',checkAuthentication, userController.modifyCartItem);
@@ -22,8 +23,6 @@ router.get('/checkout',checkAuthentication, userController.getCheckout );
 
 router.post('/order', checkAuthentication, userController.placeOrder);
 
-router.get('/orders', checkAuthentication, async (req, res) => {
 
-});
 
 module.exports = router;
